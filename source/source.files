@@ -1,0 +1,28 @@
+MODULES = \
+	m_advect.F90\
+	m_analyt0.F90\
+	m_analyt.F90\
+	m_comp_residual.F90\
+	m_dumpsol.F90\
+	m_enkf.F90\
+	m_ensrank.F90\
+	m_fixsample1D.F90\
+	m_getD.F90\
+	m_give_random_seed.F90\
+	m_mean_preserving_rotation.F90\
+	m_measurements.F90\
+	m_newton1D.F90\
+	m_newtonfunc1D.F90\
+	m_obs_pert.F90\
+	mod_dimensions.F90\
+	mod_fftw3.F90\
+	mod_shapiro.F90\
+	m_pseudo1D.F90\
+	m_random_normal.F90\
+	m_randphase.F90\
+	m_sample1D.F90\
+	m_set_random_seed2.F90
+
+F90FILES = \
+	main.F90
+

@@ -1,0 +1,3 @@
+Note that you need to change the value of nx in mod_dimension 
+according to the fft library you use for periodic solution.
+Check m_sample1D.F90 for definition of n vs n1.

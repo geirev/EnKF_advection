@@ -1,0 +1,30 @@
+ 300                # Number of time steps
+ 1.0                # Velocity
+ 5                  # print interval
+ 20.00              # rh
+ 4.0                # mean of analytical solution
+ 2                  # startsol: (0)-zero, (1)-exact, (2)-random
+ 1.0                # dx
+ 1.0                # dt
+ 500                 # nrsamp
+ 1   1              # nre_sys
+ 1   1              # nre_ini
+ 1   1              # nre_obs
+ T                  # samp_fix
+ 1.0                # inivar
+ 0.01                0.01  # obsvar
+ 0.0001            # sysvar
+ 3                  # iadv
+ 11                 # mode_analysis
+ 4                 # obsnr
+ 5.0                # obsdt
+ T                  # Create file with measurements
+ 0.95               # Truncation in analysis scheme
+ diagonal           # Choise of covariance model
+ 40.0               # horzontal decorrelation of measurement errors
+ T                  # Exact R (T), lowrank R (F)
+ uniformly          # measurements (uniformly) distributed or (clustered).
+ F                  # Shapiro filter on all realizations after updates
+ T                  # Additional mean preserving random rotation
+ 0 1.00             # Inflation (0-none, 1-const, 2-adaptive), inflation_factor
+ 0 20.0 0.2         # Localization (0-none, 1-distance, 2-adaptive), obs_radius
