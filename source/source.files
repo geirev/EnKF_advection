@@ -1,7 +1,6 @@
 MODULES = \
 	m_advect.F90\
 	m_analyt0.F90\
-	m_analyt.F90\
 	m_comp_residual.F90\
 	m_dumpsol.F90\
 	m_enkf.F90\
@@ -9,7 +8,6 @@ MODULES = \
 	m_fixsample1D.F90\
 	m_getD.F90\
 	m_give_random_seed.F90\
-	m_mean_preserving_rotation.F90\
 	m_measurements.F90\
 	m_newton1D.F90\
 	m_newtonfunc1D.F90\

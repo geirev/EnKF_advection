@@ -1,6 +1,7 @@
 module m_analyt0
 contains
 subroutine analyt0(sol,nx,u)
+! shift solutions periodically to the right one gridcell (u>0) and to the left (u<0)
    implicit none
    integer, intent(in)  :: nx
    real,    intent(in)  :: u

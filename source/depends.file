@@ -4,7 +4,6 @@ m_advect.o:      MODEL.CPP
 main.o:      m_advect.o
 main.o:      makefile
 main.o:      m_analyt0.o
-main.o:      m_analyt.o
 main.o:      m_comp_residual.o
 main.o:      m_dumpsol.o
 main.o:      m_enkf.o
@@ -23,8 +22,6 @@ main.o:      m_sample1D.o
 main.o:      m_set_random_seed2.o
 m_analyt0.o:      makefile
 m_analyt0.o:      MODEL.CPP
-m_analyt.o:      makefile
-m_analyt.o:      MODEL.CPP
 m_comp_residual.o:      makefile
 m_comp_residual.o:      MODEL.CPP
 m_dumpsol.o:      makefile
@@ -41,9 +38,6 @@ m_getD.o:      makefile
 m_getD.o:      MODEL.CPP
 m_give_random_seed.o:      makefile
 m_give_random_seed.o:      MODEL.CPP
-m_mean_preserving_rotation.o:      makefile
-m_mean_preserving_rotation.o:      MODEL.CPP
-m_mean_preserving_rotation.o:      m_randrot.o
 m_measurements.o:      makefile
 m_measurements.o:      MODEL.CPP
 m_measurements.o:      m_pseudo1D.o

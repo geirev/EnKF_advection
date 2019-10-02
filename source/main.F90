@@ -3,7 +3,6 @@ program main
    use m_multa
    use m_random
    use m_advect
-   use m_analyt
    use m_analyt0
    use m_dumpsol
    use m_sample1D
