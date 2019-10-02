@@ -196,7 +196,8 @@ program main
    call sample1D(ave,nx,1,1,1,dx,rh,.false.,.true.)
 !   ave=ave+const  ! First guess is a random perturbation from N(0,1,rh) added to "const" (Gives residual=2)
 !   ave=const      ! First guess is just equal to "const"
-   ave=ave+ana    ! First guess is a random perturbation from N(0,1,rh) added to the truth
+!   ave=ave+ana    ! First guess is a random perturbation from N(0,1,rh) added to the truth
+   ave=(ave + ana-const)/sqrt(2.0) +  const   ! Modified 2019 to make consistent initial error
    print *,'main: fg ok'
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -214,8 +215,7 @@ program main
    stddev(0)=sqrt(sum(var(1:nx))/float(nx))
    obs=0.0
    call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens)
-
-   !!call ensrank(mem,ave,nx,nrens,nint(time),enssing(:,0))
+   !call ensrank(mem,ave,nx,nrens,nint(time),enssing(:,0))
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Time stepping
@@ -272,7 +272,6 @@ program main
          endif
 
          iana=iana+1
-!         if (iana==2) stop
 
          call ensmean(mem,ave,nx,nrens)
          call ensvar(mem,ave,var,nx,nrens)
