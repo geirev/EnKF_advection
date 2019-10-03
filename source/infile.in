@@ -7,9 +7,6 @@
  1.0                # dx
  1.0                # dt
  500                 # nrsamp
- 1   1              # nre_sys
- 1   1              # nre_ini
- 1   1              # nre_obs
  T                  # samp_fix
  1.0                # inivar
  0.01                0.01  # obsvar

@@ -6,6 +6,8 @@ program main
    use m_analyt0
    use m_dumpsol
    use m_sample1D
+   use m_pseudo1D
+   use m_fixsample1D
    use m_ensmean
    use m_ensvar
    use m_comp_residual
@@ -28,8 +30,6 @@ program main
    real dx                               ! horizontal grid spacing
    real dt                               ! time step
    integer nrens                         ! ensemble size
-   integer nre_ini,nre_sys,nre_obs       ! Number of ensembles used in sampling
-   integer nrr_ini,nrr_sys,nrr_obs       ! Number of singular vectors used in improved sampling
    integer mode_analysis                 ! 1 standard, 2 fixed R
    logical samp_fix
    real inivar 
@@ -105,15 +105,6 @@ program main
 
       read(10,*)nrens             ; print *,'nrens=       ',nrens
 
-      read(10,*)nre_sys,nrr_sys   ; print *,'nre_sys=     ',nre_sys,nrr_sys
-      if (nre_sys > 1 .and. nrr_sys > nre_sys) stop 'nrr_sys > nre_sys)'
-
-      read(10,*)nre_ini,nrr_ini   ; print *,'nre_ini=     ',nre_ini,nrr_ini
-      if (nre_ini > 1 .and. nrr_ini > nre_ini) stop 'nrr_ini > nre_ini)'
-
-      read(10,*)nre_obs,nrr_obs   ; print *,'nre_obs=     ',nre_obs,nrr_obs
-      if (nre_obs > 1 .and. nrr_obs > nre_obs) stop 'nrr_obs > nre_obs)'
-
       read(10,'(1x,l1)')samp_fix  ; print *,'samp_fix=    ',samp_fix
 
       read(10,*)inivar            ; print *,'inivar=      ',inivar
@@ -187,13 +178,15 @@ program main
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! The true solution is a perturbation around the value "const" where the 
 ! perturbation is a smooth pseudo random field drawn from  N(0,1,rh).
-   call sample1D(ana,nx,1,1,1,dx,rh,.false.,.true.)
+!   call sample1D(ana,nx,1,1,1,dx,rh,.false.,.true.)
+   call pseudo1D(ana,nx,1,rh,dx,nx)
    ana=ana+const
    print *,'main: ana ok'
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! First guess solution
-   call sample1D(ave,nx,1,1,1,dx,rh,.false.,.true.)
+!   call sample1D(ave,nx,1,1,1,dx,rh,.false.,.true.)
+   call pseudo1D(ave,nx,1,rh,dx,nx)
 !   ave=ave+const  ! First guess is a random perturbation from N(0,1,rh) added to "const" (Gives residual=2)
 !   ave=const      ! First guess is just equal to "const"
 !   ave=ave+ana    ! First guess is a random perturbation from N(0,1,rh) added to the truth
@@ -202,7 +195,9 @@ program main
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Initialization of ensemble
-   call sample1D(sample,nx,nrens,nre_ini,nrr_ini,dx,rh,samp_fix,.true.)
+!   call sample1D(sample,nx,nrens,nre_ini,nrr_ini,dx,rh,samp_fix,.true.)
+   call pseudo1D(sample,nx,nrens,rh,dx,nx)
+   if (samp_fix) call fixsample1D(sample,nx,nrens)
    do i=1,nrens
       mem(:,i)=ave(:) + sqrt(inivar)*sample(:,i)
    enddo
@@ -239,7 +234,9 @@ program main
 
 ! System noise
       if (sysvar > 0.0) then
-         call sample1D(sample,nx,nrens,nre_sys,nrr_sys,dx,rh,samp_fix,.true.)
+!         call sample1D(sample,nx,nrens,nre_sys,nrr_sys,dx,rh,samp_fix,.true.)
+         call pseudo1D(sample,nx,nrens,rh,dx,nx)
+         if (samp_fix) call fixsample1D(sample,nx,nrens)
          do i=1,nrens
             mem(:,i)=mem(:,i)+sqrt(2.0*sysvar*dt)*sample(:,i)
          enddo
