@@ -1,6 +1,6 @@
 module m_dumpsol
 contains
-subroutine dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrsamp)
+subroutine dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrsamp,xx)
 
    implicit none
    integer, intent(in) :: nx
@@ -17,7 +17,9 @@ subroutine dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrsam
    real, intent(in) :: obs(nrobs)
    real, intent(in) :: obsvar
    integer reclA,i,m
+   character(len=1) xx
    character(len=4) tag
+   character(len=6) outtag
    logical ex
 
    iprt=iprt+1
@@ -36,15 +38,19 @@ subroutine dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrsam
    if ( .not.ex ) call system('mkdir Members')
 
    !print *,'dumpsol B'
+   outtag='      '
+   write(outtag,'(f0.2)')time
+   print *,'time tag',time,'--',outtag,'--'
+
    write(tag,'(i4.4)')iprt
-   open(10,file='Solution/sol'//tag//'.dat')
+   open(10,file='Solution/sol'//trim(outtag)//xx//'.dat')
       do i=1,nx
          write(10,'(5f10.4)')time,float(i-1)*dx,ana(i),ave(i),sqrt(var(i)+0.00001)
       enddo
    close(10)
 
    !print *,'dumpsol C'
-   open(10,file='Solution/obs'//tag//'.dat')
+   open(10,file='Solution/obs'//trim(outtag)//xx//'.dat')
       do m=1,nrobs
          write(10,'(5f10.4)')time,(obspos(m)-1)*dx,obs(m),-sqrt(obsvar),sqrt(obsvar)
       enddo

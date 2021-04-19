@@ -60,7 +60,8 @@ program main
 ! other variables
    logical ex
    integer iprt                          ! print record counter
-   integer iens,i,j,m,k,nn,iobs          ! Counters etc.
+   integer iens,i,j,m,k,iobs          ! Counters etc.
+   real dobs
 
 
    real time                 
@@ -155,10 +156,10 @@ program main
    select case(mesopt)
    case('uniformly')
 !     Uniformly distributed measurements
-      nn=nint(float(nx)/float(nrobs))
-      obspos(1)=nint(real(nn)/2.0)
+      dobs=nint(real(nx)/real(nrobs))
+      obspos(1)=nint(dobs/2.0)
       do m=2,nrobs
-         obspos(m)=min(obspos(m-1)+nn,nx)
+         obspos(m)=min(nint(obspos(1)+real(m-1)*dobs) , nx)
       enddo
    case('clustered')
 !     Measurement clustered on neighbouring grid points in second half of interval
@@ -209,7 +210,7 @@ program main
    residual(0)=comp_residual(ave,ana,nx)
    stddev(0)=sqrt(sum(var(1:nx))/float(nx))
    obs=0.0
-   call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens)
+   call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens,'I')
    !call ensrank(mem,ave,nx,nrens,nint(time),enssing(:,0))
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -251,7 +252,7 @@ program main
          call ensvar(mem,ave,var,nx,nrens)
          call measurements(ana,nx,obs,obspos,nrobs,obsvar,iobs,mkobs,time)
          
-         call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens)
+         call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens,'F')
 
          call enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,1,1,mode_analysis,&
                   &truncation,covmodel,dx,rh,Rexact,rd,lrandrot,lsymsqrt,&
@@ -272,7 +273,7 @@ program main
 
          call ensmean(mem,ave,nx,nrens)
          call ensvar(mem,ave,var,nx,nrens)
-         call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens)
+         call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens,'A')
 
 
          !call ensrank(mem,ave,nx,nrens,nint(time),enssing(:,iobs))
