@@ -179,7 +179,6 @@ program main
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! The true solution is a perturbation around the value "const" where the 
 ! perturbation is a smooth pseudo random field drawn from  N(0,1,rh).
-!   call sample1D(ana,nx,1,1,1,dx,rh,.false.,.true.)
    call pseudo1D(ana,nx,1,rh,dx,nx)
    ana=ana+const
    print *,'main: ana ok'
@@ -196,7 +195,6 @@ program main
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Initialization of ensemble
-!   call sample1D(sample,nx,nrens,nre_ini,nrr_ini,dx,rh,samp_fix,.true.)
    call pseudo1D(sample,nx,nrens,rh,dx,nx)
    if (samp_fix) call fixsample1D(sample,nx,nrens)
    do i=1,nrens
@@ -235,7 +233,6 @@ program main
 
 ! System noise
       if (sysvar > 0.0) then
-!         call sample1D(sample,nx,nrens,nre_sys,nrr_sys,dx,rh,samp_fix,.true.)
          call pseudo1D(sample,nx,nrens,rh,dx,nx)
          if (samp_fix) call fixsample1D(sample,nx,nrens)
          do i=1,nrens
@@ -254,7 +251,7 @@ program main
          
          call dumpsol(time,ana,ave,var,nx,iprt,dx,obs,obsvar,obspos,nrobs,mem,nrens,'F')
 
-         call enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,1,1,mode_analysis,&
+         call enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,mode_analysis,&
                   &truncation,covmodel,dx,rh,Rexact,rd,lrandrot,lsymsqrt,&
                   &inflate,infmult,local,obs_radius,obs_truncation)
 

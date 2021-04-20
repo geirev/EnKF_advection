@@ -1,6 +1,6 @@
 module m_enkf
 contains
-subroutine enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,nre,nrr,mode_analysis,truncation,covmodel,dx,rh,Rexact,rd,&
+subroutine enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,mode_analysis,truncation,covmodel,dx,rh,Rexact,rd,&
                &lrandrot,lsymsqrt,&
                &inflate, infmult,&
                &local,robs, obstreshold)
@@ -11,8 +11,6 @@ subroutine enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,nre,nrr,mode_analysis,trunc
    integer, intent(in) :: nx
    integer, intent(in) :: nrens
    integer, intent(in) :: nrobs
-   integer, intent(in) :: nre
-   integer, intent(in) :: nrr
    integer, intent(in) :: mode_analysis
 
    real,    intent(inout) :: mem(nx,nrens)
@@ -78,7 +76,7 @@ subroutine enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,nre,nrr,mode_analysis,trunc
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Construct observation perturbations E
-   call obs_pert(E,nrens,nrobs,.true.,nre,nrr,dx,rh,covmodel,obspos)
+   call obs_pert(E,nrens,nrobs,.true.,dx,rh,covmodel,obspos)
 
 ! Introduce correct variances
    do iens=1,nrens
