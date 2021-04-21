@@ -1,5 +1,11 @@
-#EnKF_advection
+# EnKF_advection
+
 EnKF implementation with advection equation as used in Evensen (2009).
+The code allows for testing various EnKF schemes with a linear advection equation on a periodic domain.
+
+<p align="center">
+<img src="doc/advection.png" width="610"> <img src="doc/RENS.png" width="610">
+</p>
 
 # Installation:
 
