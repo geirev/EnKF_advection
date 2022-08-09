@@ -20,7 +20,6 @@ main.o:      mod_shapiro.o
 main.o:      m_pseudo1D.o
 main.o:      m_random_normal.o
 main.o:      m_random.o
-main.o:      m_sample1D.o
 main.o:      m_set_random_seed2.o
 m_analyt0.o:      makefile
 m_analyt0.o:      MODEL.CPP
@@ -48,7 +47,6 @@ m_obs_pert.o:      mod_dimensions.o
 m_obs_pert.o:      MODEL.CPP
 m_obs_pert.o:      m_pseudo1D.o
 m_obs_pert.o:      m_random.o
-m_obs_pert.o:      m_randrot.o
 mod_dimensions.o:      makefile
 mod_dimensions.o:      MODEL.CPP
 mod_shapiro.o:      makefile

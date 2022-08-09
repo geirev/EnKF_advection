@@ -5,7 +5,6 @@ program main
    use m_advect
    use m_analyt0
    use m_dumpsol
-   use m_sample1D
    use m_pseudo1D
    use m_fixsample1D
    use m_ensmean
@@ -185,7 +184,6 @@ program main
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! First guess solution
-!   call sample1D(ave,nx,1,1,1,dx,rh,.false.,.true.)
    call pseudo1D(ave,nx,1,rh,dx,nx)
 !   ave=ave+const  ! First guess is a random perturbation from N(0,1,rh) added to "const" (Gives residual=2)
 !   ave=const      ! First guess is just equal to "const"
