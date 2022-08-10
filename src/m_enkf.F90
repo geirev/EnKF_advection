@@ -253,7 +253,7 @@ subroutine enkf(mem,nx,nrens,obs,obsvar,obspos,nrobs,mode_analysis,truncation,co
                 local_rot=.false.
             endif
             call analysis(submem, subR, subE, subS, subD, subinnovation, 1, nrens, nobs, .false., truncation, mode_analysis, &
-                         lrandrot, local_rot, lsymsqrt, inflate, infmult)
+                         lrandrot, local_rot, lsymsqrt, inflate, infmult, 1)
             mem(i,:)=submem(1,:)
             deallocate(subD, subE, subS, subR, subinnovation, submem)
          endif
